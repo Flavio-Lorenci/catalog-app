@@ -11,7 +11,7 @@ interface CatalogTableProps {
 }
 
 function CatalogTable({catalog, loading, onDelete, onEdit}: CatalogTableProps) {
-    const columns = [ 'Delete', 'Edit', 'Name', 'Species', 'Family', 'Place of Found','Habitat', 'Diet', 'Weight (kg)', 'Height (cm)', 'Image']
+    const columns = ['Delete', 'Edit', 'Name', 'Species', 'Family', 'Place of Found', 'Habitat', 'Diet', 'Weight (kg)', 'Height (cm)', 'Image']
 
     return (
         <>
@@ -26,7 +26,8 @@ function CatalogTable({catalog, loading, onDelete, onEdit}: CatalogTableProps) {
                                 <tr>
                                     {
                                         columns.map((column: string) => (
-                                            <th key={column} className='text-left py-3 px-4 uppercase font-semibold text-sm'>{column}</th>))
+                                            <th key={column}
+                                                className='text-left py-3 px-4 uppercase font-semibold text-sm'>{column}</th>))
                                     }
 
                                 </tr>

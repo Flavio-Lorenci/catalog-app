@@ -11,6 +11,7 @@ interface AnimalFormDialogProps {
 
 const CreateItem = forwardRef<HTMLDialogElement, AnimalFormDialogProps>(({onSubmit, onCancel, editingItem}, ref) => {
     const [values, setValues] = useState<Animal>({
+        id: '',
         name: '',
         species: '',
         family: '',
@@ -26,6 +27,7 @@ const CreateItem = forwardRef<HTMLDialogElement, AnimalFormDialogProps>(({onSubm
     useEffect(() => {
         if (editingItem) {
             setValues({
+                id: editingItem.id || '',
                 name: editingItem.name || '',
                 species: editingItem.species || '',
                 family: editingItem.family || '',

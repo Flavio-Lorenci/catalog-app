@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {FormControl, FormControlLabel, Radio, RadioGroup} from '@mui/material';
 import Spinner from '../components/Spinner.tsx';
 import CatalogCards from '../components/CatalogCards.tsx';
+import {fetchCatalog} from "../service/CatalogService.ts";
 
 function HomePage() {
     const [catalog, setCatalog] = useState([]);
@@ -10,29 +11,18 @@ function HomePage() {
         selectedRadio: '',
         searchBar: ''
     });
+    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setParam({...param, selectedRadio: event.target.value});
+    };
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setParam({...param, searchBar: event.target.value});
+    };
 
     useEffect(() => {
-        const fetchCatalog = async () => {
-            let apiUrl = '/api/catalog';
-            const params = new URLSearchParams();
-
-            if (param.selectedRadio) {
-                params.append('species', param.selectedRadio);
-            }
-
-            if (param.searchBar) {
-                params.append('name', param.searchBar);
-            }
-
-            const queryString = params.toString();
-
-            if (queryString) {
-                apiUrl += `?${queryString}`;
-            }
-
+        const getCatalogData = async () => {
+            setLoading(true);
             try {
-                const res = await fetch(apiUrl);
-                const data = await res.json();
+                const data = await fetchCatalog(param);
                 setCatalog(data);
             } catch (error) {
                 console.log('Error fetching data', error);
@@ -40,19 +30,8 @@ function HomePage() {
                 setLoading(false);
             }
         };
-
-         fetchCatalog();
+        getCatalogData();
     }, [param]);
-
-
-    const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setParam({...param, selectedRadio: event.target.value});
-    };
-
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setParam({...param, searchBar: event.target.value});
-    };
-
 
     return (
         <>

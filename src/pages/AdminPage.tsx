@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {Button} from '@mui/material';
 import CreateItem from "../components/CreateItem.tsx";
 import CatalogTable from "../components/CatalogTable.tsx";
+import {createOrUpdateItem, deleteItem, fetchCatalog} from "../service/CatalogService.ts";
 
 function AdminPage() {
     const modalRef = useRef<HTMLDialogElement>(null);
@@ -15,11 +16,10 @@ function AdminPage() {
         }
     }
 
-    const fetchCatalog = async () => {
-        const apiUrl = '/api/catalog';
+    const getCatalog = async () => {
+        setLoading(true);
         try {
-            const res = await fetch(apiUrl);
-            const data = await res.json();
+            const data = await fetchCatalog('');
             setCatalog(data);
         } catch (error) {
             console.log('Error fetching data', error);
@@ -29,37 +29,28 @@ function AdminPage() {
     };
 
     useEffect(() => {
-        fetchCatalog();
+        getCatalog();
     }, []);
 
-    const createNewItem = async (values: any) => {
+    const handleCreateOrUpdateItem = async (values: any) => {
         try {
-            const apiUrl = editingItem ? `/api/update/${editingItem.id}` : '/api/create';
-            await fetch(apiUrl, {
-                method: editingItem ? 'PUT' : 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(values),
-            });
-            await fetchCatalog();
+            const updatedCatalog = await createOrUpdateItem(values, editingItem);
+            setCatalog(updatedCatalog);
             toggleModal(false);
         } catch (error) {
             console.log('Error posting data', error);
         }
     };
 
-    const deleteItem = async (id: number) => {
+    const handleDeleteItem = async (id: number) => {
         try {
-            const apiUrl = `/api/delete/${id}`;
-            await fetch(apiUrl, {
-                method: 'DELETE',
-            });
-          await  fetchCatalog();
+            const updatedCatalog = await deleteItem(id);
+            setCatalog(updatedCatalog);
         } catch (error) {
             console.log('Error deleting data', error);
         }
     };
+
 
     const handleEditItem = (item: any) => {
         setEditingItem(item);
@@ -78,11 +69,11 @@ function AdminPage() {
             </div>
             <CreateItem
                 ref={modalRef}
-                onSubmit={createNewItem}
+                onSubmit={handleCreateOrUpdateItem}
                 onCancel={() => toggleModal(false)}
                 editingItem={editingItem}
             />
-            <CatalogTable catalog={catalog} loading={loading} onDelete={deleteItem}
+            <CatalogTable catalog={catalog} loading={loading} onDelete={handleDeleteItem}
                           onEdit={handleEditItem}/>
         </>
     );

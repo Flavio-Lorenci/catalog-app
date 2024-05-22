@@ -1,4 +1,5 @@
 export interface Animal {
+    id: string;
     name: string;
     species: string;
     family: string;
@@ -28,5 +29,4 @@ export interface AnimalFormDialogProps {
 export interface AnimalFormDialogProps {
     onSubmit: (values: Animal) => void;
     onCancel: () => void;
-    // editingItem: Animal
 }
