@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-organize-attributes"
+  ],
+  "singleQuote": true,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "semi": true,
+  "useTabs": false,
+  "proseWrap": "always",
+  "arrowParens": "always",
+  "htmlWhitespaceSensitivity": "css",
+  "bracketSameLine": true,
+  "attributeGroups": ["^#", "^mat", "id", "name", "class", "$DEFAULT"],
+  "organizeImportsSkipDestructiveCodeActions": false
+}

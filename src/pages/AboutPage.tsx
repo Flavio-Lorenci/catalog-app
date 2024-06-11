@@ -1,8 +1,6 @@
-import AboutUs from "../components/AboutUs.tsx";
+import AboutUs from '../components/AboutUs.tsx';
 
 function AboutPage() {
-    return (
-        <AboutUs />
-    );
+  return <AboutUs />;
 }
 export default AboutPage;

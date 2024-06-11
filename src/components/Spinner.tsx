@@ -1,23 +1,23 @@
-import {ClipLoader} from "react-spinners";
+import { ClipLoader } from 'react-spinners';
 
 interface SpinnerProps {
-    loading: boolean;
+  loading: boolean;
 }
 
 const override = {
-    display: 'block',
-    margin: '100px auto',
+  display: 'block',
+  margin: '100px auto',
 };
 
-function  Spinner({loading}: SpinnerProps) {
-    return (
-        <ClipLoader
-            color='#4338ca'
-            loading={loading}
-            cssOverride={override}
-            size={150}
-        />
-    );
+function Spinner({ loading }: SpinnerProps) {
+  return (
+    <ClipLoader
+      color="#4338ca"
+      loading={loading}
+      cssOverride={override}
+      size={150}
+    />
+  );
 }
 
 export default Spinner;

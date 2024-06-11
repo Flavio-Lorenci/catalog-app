@@ -1,10 +1,8 @@
 import '../App.css';
-import ContactUs from "../components/ContactUs.tsx";
+import ContactUs from '../components/ContactUs.tsx';
 
 function ContactPage() {
-    return (
-        <ContactUs/>
-    )
+  return <ContactUs />;
 }
 
 export default ContactPage;
